@@ -1,0 +1,49 @@
+serverConfig:
+  node.environment: production
+  http-server.http.port: 8080
+
+# Extra Paths
+extraWhitelistPaths:
+  - '/ui/insights'
+
+# Disable UI
+# uiConfiguration:
+#   disablePages:
+#     - 'routing-rules'
+
+# Adjust Routing Based on Query Volume
+modules:
+  - io.trino.gateway.ha.module.QueryCountBasedRouterProvider
+monitor:
+  taskDelay: 2m
+
+# Cache Query Settings
+databaseCache:
+  enabled: true
+  expireAfterWrite: 1h
+  refreshAfterWrite: 5s
+
+# routingRules:
+#   rulesEngineEnabled: true
+#   rulesType: FILE
+#   rulesConfigPath: "<>"
+#   rulesExternalConfiguration:
+#     urlPath: https://router.example.com/gateway-rules # replace with your own API path
+#     excludeHeaders:
+#       - 'Authorization'
+#       - 'Accept-Encoding'
+#     propagateErrors: false
+
+dataStore:
+  jdbcUrl: jdbc:postgresql://${ENV:BACKEND_HOST_NAME}:5432/trino_gateway_db
+  user: ${ENV:POSTGRES_USER}
+  password: ${ENV:POSTGRES_PASSWORD}
+  driver: org.postgresql.Driver
+  queryHistoryHoursRetention: 24
+
+clusterStatsConfiguration:
+  monitorType: INFO_API
+
+# https://github.com/trinodb/trino-gateway/blob/main/docker/config.yaml
+# https://github.com/alaturqua/trino-gateway-example/blob/main/trino-gateway/gateway-ha-config.yml
+# https://github.com/nil1729/trino-gateway-demo/blob/master/trino-gateway/gateway-config.yaml
