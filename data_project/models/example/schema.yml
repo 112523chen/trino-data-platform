@@ -1,0 +1,52 @@
+version: 2
+
+sources:
+  - name: generator
+    database: generator
+    schema: default
+    tables:
+      - name: customer
+        columns:
+          - name: id
+            data_tests:
+              - not_null
+              - unique
+          - name: name
+          - name: address
+          - name: test
+          - name: born_at
+          - name: age_years
+            data_tests:
+              - not_null
+          - name: group_id
+
+models:
+  - name: my_first_dbt_model
+    description: "A starter dbt model"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+  - name: my_second_dbt_model
+    description: "A starter dbt model"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+exposures:
+  - name: dashboard_metrics
+    label: Dashboard
+    type: dashboard
+    maturity: low
+
+    depends_on:
+      - source('generator','customer')
+    owner:
+      name: Alex Chen
+      email: 112523chen@gmail.com
