@@ -4,3 +4,6 @@
 
 # Allow list
 !.env.example
+
+# DBT Logs
+**/logs
