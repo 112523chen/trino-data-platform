@@ -76,6 +76,10 @@ services:
       - ./policies:/policies
     env_file:
       - .env
+  data-contract-editor:
+    image: datacontract/editor
+    ports:
+      - 4173:4173
 
 volumes:
   backend:
