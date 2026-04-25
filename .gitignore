@@ -7,3 +7,6 @@
 
 # DBT Logs
 **/logs
+
+# UV
+uv.lock
