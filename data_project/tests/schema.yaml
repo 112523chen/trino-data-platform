@@ -1,0 +1,6 @@
+version: 2
+
+data_tests:
+  - name: assert_odd_sample_is_odd
+    description: >
+      Odd Sample should have odd ids

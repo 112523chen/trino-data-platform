@@ -1,0 +1,38 @@
+version: 2
+
+sources:
+    - name: bronze
+      database: delta
+      schema: bronze
+      tables:
+        - name: sample
+          columns:
+            - name: id
+              data_tests:
+                - not_null
+                - unique
+            - name: name
+            - name: value
+
+models:
+  - name: odd_sample
+    description: "Sample split by odds"
+    columns:
+      - name: id
+        data_tests:
+          - not_null
+          - unique
+        description: "unique id that are even"
+      - name: name
+      - name: value
+
+exposures:
+  - name: report_a
+    label: test
+    type: dashboard
+    maturity: low
+    depends_on:
+      - ref('odd_sample')
+    owner:
+      name: Alex Chen
+      email: 112523chen@gmail.com
