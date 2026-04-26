@@ -34,9 +34,18 @@ models:
     staging:
       +materialized: view
       +schema: silver
+      +docs:
+        node_color: '#666666'
+      +tags: ["staging", "silver"]
     intermediate:
       +materialized: table
       +schema: silver
+      +docs:
+        node_color: silver
+      +tags: ["silver"]
     marts:
       +materialized: table
       +schema: gold
+      +docs:
+        node_color: gold
+      +tags: "gold"
