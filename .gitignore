@@ -10,3 +10,6 @@
 
 # UV
 uv.lock
+
+# Hive Config
+./hive/core-site.xml
