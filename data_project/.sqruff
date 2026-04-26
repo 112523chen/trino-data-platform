@@ -1,0 +1,5 @@
+[sqruff]
+dialect = trino  # Set to your target database dialect
+templater = dbt
+
+[sqruff:dialect:trino]
