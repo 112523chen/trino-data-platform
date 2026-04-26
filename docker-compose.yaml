@@ -80,6 +80,35 @@ services:
     image: datacontract/editor
     ports:
       - 4173:4173
+  metastore_db:
+    image: postgres:17
+    container_name: metastore_db
+    environment:
+      POSTGRES_DB: ${HIVE_POSTGRES_DB}
+      POSTGRES_USER: ${HIVE_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${HIVE_POSTGRES_PASSWORD}
+    restart: unless-stopped
+    volumes:
+      - metastoredb:/var/lib/postgresql/data
+
+  metastore:
+    build:
+      context: ./hive
+      dockerfile: Dockerfile
+    container_name: metastore
+    ports:
+      - "9083:9083"
+    env_file:
+      - .env
+    depends_on:
+      - metastore_db
+    restart: unless-stopped
+    volumes:
+      - hive:/opt/hive/data/warehouse
+
+
 
 volumes:
   backend:
+  metastoredb:
+  hive:

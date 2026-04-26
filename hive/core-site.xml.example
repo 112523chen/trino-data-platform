@@ -1,0 +1,27 @@
+<configuration>
+    <property>
+        <name>fs.azure.account.auth.type</name>
+        <value>OAuth</value>
+        <description> Use OAuth authentication </description>
+    </property>
+    <property>
+        <name>fs.azure.account.oauth.provider.type</name>
+        <value>org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider</value>
+        <description> Use client credentials </description>
+    </property>
+    <property>
+        <name>fs.azure.account.oauth2.client.endpoint</name>
+        <value>https://login.microsoftonline.com/{AZURE_TENANT_ID}/oauth2/token</value>
+        <description> URL of OAuth endpoint </description>
+    </property>
+    <property>
+        <name>fs.azure.account.oauth2.client.id</name>
+        <value>{CLIENT_ID}</value>
+        <description> Client ID </description>
+    </property>
+    <property>
+        <name>fs.azure.account.oauth2.client.secret</name>
+        <value>{CLIENT_SECRET}</value>
+        <description> Secret </description>
+    </property>
+</configuration>
