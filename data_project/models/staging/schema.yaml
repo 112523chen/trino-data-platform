@@ -1,38 +1,52 @@
 version: 2
 
 sources:
-    - name: bronze
-      database: delta
-      schema: bronze
-      tables:
-        - name: sample
-          columns:
-            - name: id
-              data_tests:
-                - not_null
-                - unique
-            - name: name
-            - name: value
+  - name: bronze
+    database: delta
+    schema: bronze
+    tables:
+      - name: sample
+        config:
+          freshness:
+            warn_after: {count: 6, period: hour}
+            error_after: {count: 12, period: hour}
+          loaded_at_field: date
+        columns:
+          - name: id
+            data_tests:
+              - not_null
+              - unique
+          - name: name
+          - name: value
+          - name: date
 
 models:
-  - name: odd_sample
+  - name: stg_odd_sample
     description: "Sample split by odds"
+    config:
+      contract:
+        enforced: true
     columns:
       - name: id
+        data_type: bigint
         data_tests:
           - not_null
           - unique
         description: "unique id that are even"
       - name: name
+        data_type: string
       - name: value
+        data_type: double
+      - name: date
+        data_type: timestamp
 
 exposures:
   - name: report_a
-    label: test
+    label: report
     type: dashboard
     maturity: low
     depends_on:
-      - ref('odd_sample')
+      - ref('int_sample')
     owner:
       name: Alex Chen
       email: 112523chen@gmail.com
